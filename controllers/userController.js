@@ -315,15 +315,15 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-// const razorpayInstant = new Razorpay({
-//   key_id: process.env.RAZORPAY_KEY_ID,
-//   key_secret: process.env.RAZORPAY_KEY_SECRET
-// })
+const razorpayInstant = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+})
 
-// //API FOR ONLINE PAYMENT 
-// const paymentRazorpay = async(req,res) =>{
+//API FOR ONLINE PAYMENT 
+const paymentRazorpay = async(req,res) =>{
   
-// }
+}
 
 
 
