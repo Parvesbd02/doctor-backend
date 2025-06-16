@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ['https://doctor-app-forntend.vercel.app', 'https://doctor-admin-teal.vercel.app'],// only allow this frontend
+  origin: ['https://doctor-app-forntend.vercel.app', 'https://doctor-admin-4oh6.vercel.app'],// only allow this frontend
   credentials: true // allow cookies, authorization headers
 }));
 
