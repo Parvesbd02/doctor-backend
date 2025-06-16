@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken";
 import multer from "multer";
 import appointmentModel from "../models/appointmentModel.js";
 import doctorModel from "../models/doctorModel.js";
-import razorpay from 'razorpay'
+import connectCloudinary from "../config/cloudinary.js";
+
 
 
 // Multer setup
@@ -126,7 +127,7 @@ const getProfile = async (req, res) => {
 // UPDATE PROFILE
 
 const updateUserProfile = async (req, res) => {
-  try {
+    try {
     const userId = req.user.id;
     const { name, phone, address, dob, gender } = req.body;
 
@@ -138,14 +139,21 @@ const updateUserProfile = async (req, res) => {
       gender,
     };
 
-    // Handle uploaded image correctly
+    // Handle uploaded image to Cloudinary
     if (req.file) {
-      updatedFields.image = req.file.path.replace("\\", "/");
+      const localPath = req.file.path;
+      const cloudinaryResult = await connectCloudinary(localPath, 'user_profiles'); // folder: user_profiles
+      updatedFields.image = cloudinaryResult.secure_url; // Save Cloudinary URL
     }
 
     const user = await userModel.findByIdAndUpdate(userId, updatedFields, { new: true });
 
-    res.json({ success: true, message: "Profile updated successfully", user });
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      user,
+    });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error" });
